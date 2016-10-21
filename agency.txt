@@ -1,0 +1,4 @@
+﻿agency_id,agency_name,agency_url,agency_timezone,agency_lang
+CMBC,TransLink,http://www.translink.ca,America/Vancouver,en
+WCEX,West Coast Express,http://www.translink.ca/en/About-Us/Corporate-Overview/Operating-Companies/WCE.aspx,America/Vancouver,en
+SKYT,British Columbia Rapid Transit Company,http://www.translink.ca/en/About-Us/Corporate-Overview/Operating-Companies/BCRTC.aspx,America/Vancouver,en
