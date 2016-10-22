@@ -14,9 +14,11 @@ rows_to_lists(Rows, Lists) :-
 
 row_to_list(Row, List) :-
   Row =.. [row|List].
-
+% END from http://stackoverflow.com/a/23183753
 %----------------------------------------------%
 
+%----------------------------------------------%
+% create knowledge base
 assert_agency(_,[],[]).
 assert_agency(Id, [Label|Labels], [Value|Values]) :-
   asserta(agency(Id, Label, Value)),
@@ -139,26 +141,41 @@ assert_file(Type, File) :-
 :- assert_file("route", "routes.txt").
 :- assert_file("shape", "shapesaa.txt").
 :- assert_file("shape", "shapesab.txt").
-:-  assert_file("stop_time", "stop_timesaa.txt").
-:-  assert_file("stop_time", "stop_timesab.txt").
-:-  assert_file("stop_time", "stop_timesac.txt").
-:-  assert_file("stop_time", "stop_timesad.txt").
-:-  assert_file("stop_time", "stop_timesae.txt").
-:-  assert_file("stop_time", "stop_timesaf.txt").
-:-  assert_file("stop_time", "stop_timesag.txt").
-:-  assert_file("stop_time", "stop_timesah.txt").
-:-  assert_file("stop_time", "stop_timesai.txt").
-:-  assert_file("stop_time", "stop_timesaj.txt").
-:-  assert_file("stop_time", "stop_timesak.txt").
-:-  assert_file("stop_time", "stop_timesal.txt").
-:-  assert_file("stop_time", "stop_timesam.txt").
-:-  assert_file("stop_time", "stop_timesan.txt").
-:-  assert_file("stop_time", "stop_timesao.txt").
-:-  assert_file("stop_time", "stop_timesap.txt").
-:-  assert_file("stop_time", "stop_timesaq.txt").
-:-  assert_file("stop_time", "stop_timesar.txt").
-:-  assert_file("stop_time", "stop_timesas.txt").
+:- assert_file("stop_time", "stop_timesaa.txt").
+:- assert_file("stop_time", "stop_timesab.txt").
+:- assert_file("stop_time", "stop_timesac.txt").
+:- assert_file("stop_time", "stop_timesad.txt").
+:- assert_file("stop_time", "stop_timesae.txt").
+:- assert_file("stop_time", "stop_timesaf.txt").
+:- assert_file("stop_time", "stop_timesag.txt").
+:- assert_file("stop_time", "stop_timesah.txt").
+:- assert_file("stop_time", "stop_timesai.txt").
+:- assert_file("stop_time", "stop_timesaj.txt").
+:- assert_file("stop_time", "stop_timesak.txt").
+:- assert_file("stop_time", "stop_timesal.txt").
+:- assert_file("stop_time", "stop_timesam.txt").
+:- assert_file("stop_time", "stop_timesan.txt").
+:- assert_file("stop_time", "stop_timesao.txt").
+:- assert_file("stop_time", "stop_timesap.txt").
+:- assert_file("stop_time", "stop_timesaq.txt").
+:- assert_file("stop_time", "stop_timesar.txt").
+:- assert_file("stop_time", "stop_timesas.txt").
 :- assert_file("stop", "stops.txt").
 :- assert_file("transfer", "transfers.txt").
 :- assert_file("trip", "trips.txt").
+% END creating knowledge base
+%----------------------------------------------%
+
+stops_at_helper(RouteId, StopCode) :-
+  stop(StopId, 'stop_code', StopCode),
+  stop_time(TripId, 'stop_id', StopId),
+  trip(RouteId, 'trip_id', TripId).
+
+stops_at(RouteNum, RouteName, StopCode, StopName) :-
+  setof(RouteId, stops_at_helper(RouteId, StopCode), Trips),
+  member(RouteId,Trips),
+  route(RouteId, 'route_short_name', RouteNum),
+  route(RouteId, 'route_long_name', RouteName),
+  stop(StopId,'stop_code', StopCode),
+  stop(StopId,'stop_name', StopName).
 
