@@ -83,3 +83,6 @@ stops_at(RouteNum, RouteName, StopCode, StopName) :-
   stop(StopId,'stop_code', StopCode),
   stop(StopId,'stop_name', StopName).
 
+goes_between(StopCodeA, StopCodeB, RouteNum) :-
+  stops_at(RouteNum, _, StopCodeA, _),
+  stops_at(RouteNum, _, StopCodeB, _).
