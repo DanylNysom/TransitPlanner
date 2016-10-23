@@ -26,18 +26,26 @@ parse_which_query([bus|List], Answer) :-
   !,
   interpret_specifiers(Specifiers, route, Answer).
 
+is_skip_word(Word) :- Word = from; Word = to; Word = and.
+
 parse_specifiers([], _, _) :- !.
+parse_specifiers([SkipWord|List], Previous, Specifiers) :-
+  is_skip_word(SkipWord),
+  parse_specifiers(List, Previous, Specifiers).
+
 parse_specifiers([stop,at|List], _, [Specifier|MoreSpecifiers]) :-
   parse_specifiers([stops,at|List], [stops,at], [Specifier|MoreSpecifiers]).
-
 parse_specifiers([stops,at|List], _, [Specifier|MoreSpecifiers]) :-
   parse_specifiers_stopsAt(List, Rest, Specifier),
   parse_specifiers(Rest, [stops,at], MoreSpecifiers).
-
-parse_specifiers([and|List], Previous, Specifiers) :-
-  parse_specifiers(List, Previous, Specifiers).
-
 parse_specifiers([stops,at|List], [stops,at], [Specifier|MoreSpecifiers]) :-
+  parse_specifiers_stopsAt(List, Rest, Specifier),
+  parse_specifiers(Rest, [stops,at], MoreSpecifiers).
+
+parse_specifiers([go,_|List], [stops,at], [Specifier|MoreSpecifiers]) :-
+  parse_specifiers_stopsAt(List, Rest, Specifier),
+  parse_specifiers(Rest, [stops,at], MoreSpecifiers).
+parse_specifiers([goes,_|List], [stops,at], [Specifier|MoreSpecifiers]) :-
   parse_specifiers_stopsAt(List, Rest, Specifier),
   parse_specifiers(Rest, [stops,at], MoreSpecifiers).
 
