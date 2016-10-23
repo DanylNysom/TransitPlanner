@@ -1,3 +1,30 @@
+% Prolog
+stops_at(Trip, Stop) :-
+  % stop_id of stop
+  stop_id(Stop, StopId),
+  setof(
+    Trip0,
+    setof(
+    (StopTime, TripId), % Un-interesting free variables
+    (
+      % stop_id of stop_time
+      stop_id(StopTime, StopId),
+      trip_id(StopTime, TripId),
+      StopTime,
+      trip_id(Trip0, TripId),
+      Trip0 = trip(_,_,_,_,_,_,_,_),
+      Trip0
+    ),
+    _
+    ),
+    Trips
+  ),
+  member(Trip, Trips).
+
+goes_between(StopA, StopB, Trip) :-
+  stops_at(Trip, StopA),
+  stops_at(Trip, StopB).
+
 % stop_times
 % (StartStopId, StartTime): stop_id, time(string)
 % (DestStopId, DestTime): stop_id, time(string)
