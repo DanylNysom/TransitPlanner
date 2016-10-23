@@ -1,5 +1,28 @@
-% Stops
+% stop_times
+% (StartStopId, StartTime): stop_id, time(string)
+% (DestStopId, DestTime): stop_id, time(string)
+% TripId: Out trip_id
+directly_reachable((StartStopId, StartTime), (DestStopId, DestTime), TripId) :- true,
+  time_second(StartTime, StartSecond),
+  time_second(DestTime, DestSecond),
+  % departure_time is later than StartTime
+  stop_id(StartStopTime, StartStopId),
+  StartStopTime,
+  departure_time(StartStopTime, DepartureTime),
+  time_second(DepartureTime, DepartureSecond),
+  StartSecond < DepartureSecond,
+  % shares the same trip
+  trip_id(StartStopTime, TripId),
+  trip_id(DestStopTime, TripId),
+  % arrival_time is earlier than DestTime
+  stop_id(DestStopTime, DestStopId),
+  DestStopTime,
+  arrival_time(DestStopTime, ArrivalTime),
+  time_second(ArrivalTime, ArrivalSecond),
+  ArrivalSecond < DestSecond.
+  
 
+% stops
 % (Lat, Lon): (number, number)
 % Stop: Out stop(...)
 nearest_stop((Lat,Lon), Stop) :-
@@ -14,8 +37,8 @@ nearest_stop((Lat,Lon), Stop) :-
     DisStopMap),
   keysort(DisStopMap, [_ - Stop|_]).
 
-% Utils
 
+% Utils
 % (Lat0, Lon0): (number, number)
 % (Lat1, Lon1): (number, number)
 % Distance: Out number
