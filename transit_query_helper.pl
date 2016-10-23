@@ -10,10 +10,8 @@ stops_at(Trip, Stop) :-
       % stop_id of stop_time
       stop_id(StopTime, StopId),
       trip_id(StopTime, TripId),
-      StopTime,
       trip_id(Trip0, TripId),
-      Trip0 = trip(_,_,_,_,_,_,_,_),
-      Trip0
+      Trip0 = trip(_,_,_,_,_,_,_,_)
     ),
     _
     ),
