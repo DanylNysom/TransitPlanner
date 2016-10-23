@@ -169,8 +169,6 @@
 28957,CMBC,894,STC OPERATIONAL OVERLOADS, ,3,http://tripplanning.translink.ca/hiwire?.a=iScheduleLookup, , 
 28958,CMBC,895,VTC/OTC OPERATIONAL OVERLOADS, ,3,http://tripplanning.translink.ca/hiwire?.a=iScheduleLookup, , 
 28959,SKYT,980,CANADA LINE SKYTRAIN, ,2,http://infomaps.translink.ca/Public_Timetables/SkyTrain.pdf, , 
-30056,SKYT,991,MILLENNIUM SKYTRAIN, ,2,http://infomaps.translink.ca/Public_Timetables/SkyTrain.pdf, , 
-30057,SKYT,992,EXPO SKYTRAIN, ,2,http://infomaps.translink.ca/Public_Timetables/SkyTrain.pdf, , 
 28960,SKYT,996,MILLENNIUM SKYTRAIN, ,2,http://infomaps.translink.ca/Public_Timetables/SkyTrain.pdf, , 
 28961,WCEX,997,WEST COAST EXPRESS              , ,2,http://infomaps.translink.ca/Public_Timetables/WCE.pdf, , 
 28962,CMBC,998,SEABUS                          , ,4,http://infomaps.translink.ca/Public_Timetables/SeaBus.pdf, , 

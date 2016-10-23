@@ -77,9 +77,7 @@ interpret_specifiers([[Key,Value]|Specifiers], Type, Answer) :-
   interpret_specifiers(Specifiers, Type, Answer).
 
 interpret_specifier(stop_code, StopCode, route, Answer) :-
-  stop(StopId, stop_code, StopCode),
-  !,  % cut here because otherwise Prolog looks for all of the
-      % other stops that the Answer route it just found stops at,
-      % and returns the same answer for each of them
-  stops_at(Answer, StopId).
+  stop_code(Stop, StopCode),
+  stops_at(Trip, Stop),
+  trip_headsign(Trip, Answer).
 
