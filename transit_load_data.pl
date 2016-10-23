@@ -35,9 +35,10 @@ assert_rows(Term, Labels, [Values|List]) :-
   assert_rows(Term, Labels, List).
 
 assert_file(Type, File) :-
-  string_concat("Loading ", File, Message),
+  string_concat("data/", File, FilePath),
+  string_concat("Loading ", FilePath, Message),
   writeln(Message),
-  get_rows_data(File, [Labels|Values]),
+  get_rows_data(FilePath, [Labels|Values]),
   assert_rows(Type, Labels, Values).
 
 % separate to save the stack from overflowing
@@ -70,19 +71,3 @@ assert_file(Type, File) :-
 :- assert_file(transfer, "transfers.txt").
 :- assert_file(trip, "trips.txt").
 
-stops_at_helper(RouteId, StopCode) :-
-  stop(StopId, 'stop_code', StopCode),
-  stop_time(TripId, 'stop_id', StopId),
-  trip(RouteId, 'trip_id', TripId).
-
-stops_at(RouteNum, RouteName, StopCode, StopName) :-
-  setof(RouteId, stops_at_helper(RouteId, StopCode), Trips),
-  member(RouteId,Trips),
-  route(RouteId, 'route_short_name', RouteNum),
-  route(RouteId, 'route_long_name', RouteName),
-  stop(StopId,'stop_code', StopCode),
-  stop(StopId,'stop_name', StopName).
-
-goes_between(StopCodeA, StopCodeB, RouteNum) :-
-  stops_at(RouteNum, _, StopCodeA, _),
-  stops_at(RouteNum, _, StopCodeB, _).
