@@ -80,4 +80,3 @@ interpret_specifier(stop_code, StopCode, route, Answer) :-
   stop_code(Stop, StopCode),
   stops_at(Trip, Stop),
   trip_headsign(Trip, Answer).
-
